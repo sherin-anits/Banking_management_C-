@@ -1,0 +1,129 @@
+#include"banking.h"
+int Newclient::count1=69;
+int Oldclient::count2=108;
+int main()
+{
+        int choice;
+        cout<<"1.to create an account"<<endl;
+        cout<<"2.existing account"<<endl;
+        cout<<"3.exit"<<endl;
+        while(1)
+        {
+                cout<<"Enter the choice"<<endl;
+                cin>>choice;
+                switch(choice)
+                {
+                        case 1:
+                        {
+                                Bank *b=new Bank;
+                                Newclient *n=new Newclient;
+                                b=dynamic_cast<Bank*>(n);
+                                cout<<"Enter the Details of the customer"<<endl;
+                                cout<<"Enter the deposit amount"<<endl;
+                                cin>>*b;
+                                n=dynamic_cast<Newclient*>(b);
+                                cout<<"Account has been created"<<endl;
+                                n->putdetails();
+                                break;
+                        }
+                        case 2:
+                        {
+                                Bank *a=new Bank;
+                               Oldclient *o=new Oldclient;
+                                a=dynamic_cast<Bank*>(o);
+                                cout<<"Enter the details of the customer"<<endl;
+                                cout<<"Enter the balance amount"<<endl;
+                                cin>>*a;
+                                cout<<"Account has been created"<<endl;
+                                o=dynamic_cast<Oldclient*>(a);
+                                o->putdetails();
+                                break;
+                        }
+                        case 3:
+                        {
+                                cout<<"EXITED"<<endl;
+                                return 0;
+                                break;
+                        }
+                        default:
+                        {
+                                cout<<"Enter valid choice"<<endl;
+                        }
+
+                }
+        }
+        return 0;
+}
+
+#include"banking.h"
+void Bank::putdetails()
+{
+        cout<<"The details of the customer"<<endl;
+}
+istream & operator>>(istream & in,Bank & b)
+{
+        cout<<"Enter the name,phoneno,address"<<endl;
+        in>>b.balance>>b.name>>b.phonenumber>>b.address;
+
+        return in;
+}
+Newclient::Newclient()
+{
+        count1++;
+        accountid =count1;
+}
+void Newclient::putdetails()
+{
+        cout<<"Details of the new customer"<<endl;
+        cout<<"Name"<<"\t"<<name<<endl;
+        cout<<"Address"<<"\t"<<address<<endl;
+        cout<<"Balance"<<"\t"<<balance<<endl;
+        cout<<"Accountnumber"<<"\t"<<"ISTM"<<accountid<<endl;
+        cout<<"Phonenumber"<<"\t"<<phonenumber<<endl;
+}
+Oldclient::Oldclient()
+{
+        count2++;
+        accountid =count2;
+}
+void Oldclient::putdetails()
+{
+        cout<<"Details of the new customer"<<endl;
+        cout<<"Name"<<"\t"<<name<<endl;
+        cout<<"Address"<<"\t"<<address<<endl;
+        cout<<"Balance"<<"\t"<<balance<<endl;
+        cout<<"Accountnumber"<<"\t"<<"ISTMN"<<accountid<<endl;
+        cout<<"Phonenumber"<<"\t"<<phonenumber<<endl;
+}
+
+#include<iostream>
+using namespace std;
+class Bank
+{
+        protected:
+                string name;
+                long long phonenumber;
+                string address;
+                float balance;
+        public:
+                virtual void putdetails();
+                friend istream & operator>>(istream & in,Bank & b);
+};
+class Newclient:public Bank
+{
+
+        static int count1;
+        int accountid;
+        public:
+                Newclient();
+                void putdetails();
+};
+class Oldclient:public Bank
+{
+        static int count2;
+        int accountid;
+        public:
+                Oldclient();
+                void putdetails();
+};
+
